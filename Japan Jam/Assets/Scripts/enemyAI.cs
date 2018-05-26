@@ -21,6 +21,7 @@ public class enemyAI : MonoBehaviour {
 	void Start () {
 		position = transform.position;
 		player = GameObject.Find ("player");
+        target = player;
 	}
 	
 	// Update is called once per frame
