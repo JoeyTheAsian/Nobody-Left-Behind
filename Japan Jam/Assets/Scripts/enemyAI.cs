@@ -14,8 +14,12 @@ public class enemyAI : MonoBehaviour {
 	public Vector2 wanderPoint;
 	public bool IsWandering = false;
 	public float wanderRadius;
+    public Sprite up;
+    public Sprite down;
+    public Sprite right;
+    public Sprite left;
 
-	public bool CanFlee = false;
+    public bool CanFlee = false;
 
 	public List<GameObject> followers;
 
@@ -48,13 +52,51 @@ public class enemyAI : MonoBehaviour {
 		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
 		tempPos += velocity;
         Vector3 direction = velocity.normalized;
-
-		transform.position = tempPos;
+        float angle = Mathf.Atan2(direction.x, direction.y) * (180f / Mathf.PI);
+        if(angle < 0f)
+        {
+            angle += 360f;
+        }
+        if(angle >= 45f && angle < 135f)
+        {
+            SetSprite("Right");
+        }
+        if (angle >= 135f && angle < 180f)
+        {
+            SetSprite("Down");
+        }
+        if (angle >= 180f && angle < 225f)
+        {
+            SetSprite("Left");  
+        }
+        if ((angle <= 360 && angle > 315) || (angle >= 0 && angle < 45f)) 
+        {
+            SetSprite("Up");
+        }
+        transform.position = tempPos;
 
 		ManageFollowers ();
 	}
-
-	void Seek(Vector2 p){
+    void SetSprite(string dir)
+    {
+        if (dir == "Right")
+        {
+            GetComponent<SpriteRenderer>().sprite = right;
+        }
+        else if (dir == "Left")
+        {
+            GetComponent<SpriteRenderer>().sprite = left;
+        }
+        else if (dir == "Up")
+        {
+            GetComponent<SpriteRenderer>().sprite = up;
+        }
+        else if (dir == "Down")
+        {
+            GetComponent<SpriteRenderer>().sprite = down;
+        }
+    }
+    void Seek(Vector2 p){
 		Vector2 result = Vector2.zero;
 		result = p - (Vector2)transform.position;
 		result.Normalize ();

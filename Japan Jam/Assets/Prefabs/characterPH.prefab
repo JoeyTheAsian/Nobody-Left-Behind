@@ -87,6 +87,10 @@ MonoBehaviour:
   player: {fileID: 0}
   seekPos: {x: 0, y: 0}
   IsStolen: 0
+  up: {fileID: 21300000, guid: cd1020d8569ee124f9fddcc64be44ddd, type: 3}
+  down: {fileID: 21300000, guid: a4fcf4d1ce074c34b8d1275419b58db5, type: 3}
+  right: {fileID: 21300000, guid: 56218020aee278c4da3da70a9f044163, type: 3}
+  left: {fileID: 21300000, guid: 828f65d5d45b396468417f4bace89fe3, type: 3}
 --- !u!212 &212986281068128866
 SpriteRenderer:
   m_ObjectHideFlags: 1
