@@ -19,6 +19,7 @@ public class exitScript : MonoBehaviour {
 		if (player.GetComponent<playerControl>().followers.Count  >= followCount){
 			IsOpen = true;
 			GetComponents<BoxCollider2D> ()[1].enabled = false;
+
 		}
 	}
 }

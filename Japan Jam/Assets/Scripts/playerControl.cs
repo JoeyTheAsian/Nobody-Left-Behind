@@ -22,6 +22,8 @@ public class playerControl : MonoBehaviour {
 
 	public bool IsMoving = true;
 
+	public bool CanControl = true;
+
 
 	// Use this for initialization
 	void Start () {
@@ -38,7 +40,12 @@ public class playerControl : MonoBehaviour {
 			UpdatePrev ();
 		}
 
-		Movement ();
+		if(CanControl){
+			Movement ();
+		}
+		else{
+			AutoMove ();
+		}
 
 		FollowerMovement ();
 
@@ -52,7 +59,7 @@ public class playerControl : MonoBehaviour {
 	}
 
 	void CheckMoving(){
-		if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.D)){
+		if((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.D)) && CanControl){
 			IsMoving = false;
 			velocity = Vector2.zero;
 			acceleration = Vector2.zero;
@@ -131,6 +138,14 @@ public class playerControl : MonoBehaviour {
 
 	}
 
+	void AutoMove(){
+		velocity = -speedForceVert * maxSpeed;
+		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
+		position = transform.position;
+		position += velocity;
+		transform.position = position;
+	}
+
 	void OnTriggerEnter2D(Collider2D col){
 		if (col.name.Contains("character")){
 			if (!col.GetComponent<characterScript>().collected){
@@ -143,6 +158,8 @@ public class playerControl : MonoBehaviour {
 		else if(col.name.Contains("exit")){
 			if (col.GetComponent<exitScript>().IsOpen){
 				Debug.Log ("exit!");
+				CanControl = false;
+
 			}
 		}
 	}
