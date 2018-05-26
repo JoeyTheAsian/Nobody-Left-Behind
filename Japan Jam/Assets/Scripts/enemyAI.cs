@@ -9,6 +9,11 @@ public class enemyAI : MonoBehaviour {
 	public Vector2 acceleration;
 	public Vector2 velocity;
 	public Vector2 position;
+	public float aggroRadius;
+	public float wanderDistance;
+	public Vector2 wanderPoint;
+	public bool IsWandering = false;
+	public float wanderRadius;
 
 	public GameObject player;
 
@@ -23,16 +28,22 @@ public class enemyAI : MonoBehaviour {
 		acceleration = Vector2.zero;
 		Vector2 ultimate = Vector2.zero;
 		Vector2 tempPos = transform.position;
-		Seek (player);
+		if(CheckDistance()){
+			Seek (player.transform.position);
+			RotateTowardsPlayer ();
+		}
+		else{
+			Wander ();
+		}
 		velocity += acceleration;
 		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
 		tempPos += velocity;
 		transform.position = tempPos;
 	}
 
-	void Seek(GameObject p){
+	void Seek(Vector2 p){
 		Vector2 result = Vector2.zero;
-		result = p.transform.position - transform.position;
+		result = p - (Vector2)transform.position;
 		result.Normalize ();
 		result *= maxForce;
 		ApplyForce (result);
@@ -40,5 +51,41 @@ public class enemyAI : MonoBehaviour {
 
 	void ApplyForce(Vector2 force){
 		acceleration += force;
+	}
+
+	bool CheckDistance(){
+		if((player.transform.position - transform.position).magnitude < aggroRadius){
+			return true;
+		}
+		return false;
+	}
+
+	void SetWanderPoint(){
+		float angle;
+		angle = Random.Range (0, 360);
+		//angle = angle * Mathf.Deg2Rad;
+		Vector2 seekPoint;
+		transform.Rotate (new Vector3 (0f, 0f, angle));
+		seekPoint = transform.up * wanderDistance;
+		wanderPoint = seekPoint;
+	}
+
+	void Wander(){
+		if((wanderPoint - (Vector2)transform.position).magnitude < wanderRadius || !IsWandering){
+			SetWanderPoint ();
+			IsWandering = true;
+		}
+		Seek (wanderPoint);
+	}
+
+	void RotateTowardsPlayer(){
+		Vector2 rot = transform.position - player.transform.position;
+		rot.Normalize ();
+		transform.right = rot;
+	}
+
+	void OnCollisionEnter2D(Collision2D col){
+		SetWanderPoint ();
+		Debug.Log ("col");
 	}
 }
