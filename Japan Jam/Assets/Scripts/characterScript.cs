@@ -16,6 +16,8 @@ public class characterScript : MonoBehaviour {
 
 	public Vector2 seekPos;
 
+	public bool IsStolen = false;
+
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("player");
@@ -35,6 +37,17 @@ public class characterScript : MonoBehaviour {
 		}
 		if(!player.GetComponent<playerControl>().IsMoving && collected){
 			SlowDown ();
+		}
+
+		if(IsStolen){
+			acceleration = Vector2.zero;
+			Vector2 ultimate = Vector2.zero;
+			Vector2 tempPos = transform.position;
+			Seek ();
+			velocity += acceleration;
+			velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
+			tempPos += velocity;
+			transform.position = tempPos;
 		}
 
 	}
