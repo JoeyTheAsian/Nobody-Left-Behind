@@ -52,6 +52,8 @@ public class enemyAI : MonoBehaviour {
 		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
 		tempPos += velocity;
         Vector3 direction = velocity.normalized;
+
+		transform.position = tempPos;
         float angle = Mathf.Atan2(direction.x, direction.y) * (180f / Mathf.PI);
         if(angle < 0f)
         {

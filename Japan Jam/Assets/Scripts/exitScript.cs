@@ -16,7 +16,7 @@ public class exitScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (player.GetComponent<playerControl>().followers.Count  >= followCount){
+		if (player.GetComponent<playerControl>().followers.Count  >= followCount && !IsOpen){
 			IsOpen = true;
 			GetComponents<BoxCollider2D> ()[1].enabled = false;
 

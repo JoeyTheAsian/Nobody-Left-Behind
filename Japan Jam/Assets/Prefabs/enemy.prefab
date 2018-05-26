@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937be2351af917e4280947fe67bcad40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0.13
-  maxForce: 0.13
+  maxSpeed: 0.11
+  maxForce: 0.11
   acceleration: {x: 0, y: 0}
   velocity: {x: 0, y: 0}
   position: {x: 0, y: 0}

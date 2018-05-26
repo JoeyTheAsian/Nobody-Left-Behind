@@ -71,7 +71,7 @@ public class playerControl : MonoBehaviour {
         }
         if (!CanControl)
         {
-            credits.transform.Translate(new Vector3(0f, Time.deltaTime * 5.0f, 0f));
+            credits.transform.Translate(new Vector3(0f, Time.deltaTime * 10.0f, 0f));
             exitTimer -= Time.deltaTime;
             if(exitTimer <= 0f)
             {

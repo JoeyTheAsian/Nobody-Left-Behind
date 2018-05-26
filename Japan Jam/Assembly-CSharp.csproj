@@ -51,11 +51,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\Scripts\characterScript.cs" />
      <Compile Include="Assets\Scripts\enemyAI.cs" />
      <Compile Include="Assets\Scripts\exitScript.cs" />
      <Compile Include="Assets\Scripts\LightScript.cs" />
+     <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Manager.cs" />
      <Compile Include="Assets\Scripts\playerControl.cs" />
      <Compile Include="Assets\Scripts\soundManager.cs" />

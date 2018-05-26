@@ -6,11 +6,15 @@ public class Manager : MonoBehaviour {
 
 	public float boundsHeight;
 	public float boundWidth;
-	public GameObject tree;
+	public List<GameObject> obstacles;
+    public GameObject borderTree;
 	public GameObject character;
+	public GameObject exit;
+    public GameObject enemy;
 
 	public float treeNum;
 	public float characterNum;
+    public float enemyNum;
 
 	private Vector2 topLeft;
 	private float spawnDistance;
@@ -18,10 +22,11 @@ public class Manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		topLeft = new Vector2 (-boundWidth / 2, boundsHeight / 2);
-		spawnDistance = 3f;
+		spawnDistance = 5f;
 		SpawnBounds ();
 		SpawnObstacles ();
 		SpawnCharacters ();
+        SpawnEnemies();
 	}
 	
 	// Update is called once per frame
@@ -31,16 +36,22 @@ public class Manager : MonoBehaviour {
     
 	void SpawnBounds(){
 		for (int i = 0; i < boundsHeight * 2; i+=(int)spawnDistance) {
-			Instantiate (tree, new Vector2 ((-boundWidth / 2), boundsHeight - i), Quaternion.identity);
+			Instantiate (borderTree, new Vector2 ((-boundWidth / 2), boundsHeight - i), Quaternion.identity);
 		}
 		for (int i = 0; i < boundsHeight * 2; i+=(int)spawnDistance) {
-			Instantiate (tree, new Vector2 ((boundWidth / 2), boundsHeight - i), Quaternion.identity);
+			Instantiate (borderTree, new Vector2 ((boundWidth / 2), boundsHeight - i), Quaternion.identity);
 		}
 		for (int i = 0; i < boundWidth; i+=(int)spawnDistance) {
-			Instantiate (tree, new Vector2 (boundWidth / 2 - i, boundsHeight), Quaternion.identity);
+			Instantiate (borderTree, new Vector2 (boundWidth / 2 - i, boundsHeight), Quaternion.identity);
 		}
-		for (int i = 0; i < boundWidth; i+=(int)spawnDistance) {
-			Instantiate (tree, new Vector2 (boundWidth / 2 - i, -boundsHeight), Quaternion.identity);
+		for (int i = 0; i < boundWidth / 2; i+=(int)spawnDistance) {
+			//Instantiate (exit, new Vector2 (boundWidth - i, -boundsHeight), Quaternion.identity);
+			Instantiate (borderTree, new Vector2 (boundWidth / 2 - i, -boundsHeight), Quaternion.identity);
+		}
+		Instantiate (exit, new Vector2 (0, -boundsHeight), Quaternion.identity);
+		for (int i = (int)boundWidth / 2 + (int)spawnDistance; i < boundWidth; i+=(int)spawnDistance) {
+			//Instantiate (exit, new Vector2 (boundWidth - i, -boundsHeight), Quaternion.identity);
+			Instantiate (borderTree, new Vector2 (boundWidth / 2 - i, -boundsHeight), Quaternion.identity);
 		}
 	}
 
@@ -48,7 +59,8 @@ public class Manager : MonoBehaviour {
 		for (int i = 0; i < treeNum; i++) {
 			float rX = Random.Range (topLeft.x, topLeft.x + boundWidth);
 			float rY = Random.Range (topLeft.y, topLeft.y + boundsHeight * 2) - boundsHeight * 1.5f;
-			Instantiate (tree, new Vector2 (rX, rY), Quaternion.identity);
+            int a = Random.Range(0, 3);
+			Instantiate (obstacles[a], new Vector2 (rX, rY), Quaternion.identity);
 		}
 	}
 
@@ -59,4 +71,14 @@ public class Manager : MonoBehaviour {
 			Instantiate (character, new Vector2 (rX, rY), Quaternion.identity);
 		}
 	}
+
+    void SpawnEnemies()
+    {
+        for (int i = 0; i < enemyNum; i++)
+        {
+            float rX = Random.Range(topLeft.x, topLeft.x + boundWidth);
+            float rY = Random.Range(topLeft.y, topLeft.y + boundsHeight * 2) - boundsHeight * 1.5f;
+            Instantiate(enemy, new Vector2(rX, rY), Quaternion.identity);
+        }
+    }
 }
