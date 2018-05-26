@@ -15,12 +15,17 @@ public class enemyAI : MonoBehaviour {
 	public bool IsWandering = false;
 	public float wanderRadius;
 
+	public bool CanFlee = false;
+
+	public List<GameObject> followers;
+
 	public GameObject player;
     GameObject target;
 	// Use this for initialization
 	void Start () {
 		position = transform.position;
 		player = GameObject.Find ("player");
+		target = player;
 	}
 	
 	// Update is called once per frame
@@ -32,6 +37,9 @@ public class enemyAI : MonoBehaviour {
 			Seek (target.transform.position);
 			//RotateTowardsPlayer ();
 		}
+		else if(CanFlee){
+			Flee (player.transform.position);
+		}
 		else{
 			Wander ();
 		}
@@ -39,6 +47,8 @@ public class enemyAI : MonoBehaviour {
 		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
 		tempPos += velocity;
 		transform.position = tempPos;
+
+		ManageFollowers ();
 	}
 
 	void Seek(Vector2 p){
@@ -49,12 +59,20 @@ public class enemyAI : MonoBehaviour {
 		ApplyForce (result);
 	}
 
+	void Flee(Vector2 p){
+		Vector2 result = Vector2.zero;
+		result = (Vector2)transform.position - p;
+		result.Normalize ();
+		result *= maxForce;
+		ApplyForce (result);
+	}
+
 	void ApplyForce(Vector2 force){
 		acceleration += force;
 	}
 
 	bool CheckDistance(){
-		if((player.transform.position - transform.position).magnitude < aggroRadius){
+		if((player.transform.position - transform.position).magnitude < aggroRadius && !CanFlee){
             target = player;
 			return true;
 		}
@@ -98,8 +116,33 @@ public class enemyAI : MonoBehaviour {
 		transform.right = rot;
 	}
 
+	void ManageFollowers(){
+		foreach(GameObject f in followers){
+			f.GetComponent<characterScript> ().seekPos = transform.position;
+		}
+	}
+
 	void OnCollisionEnter2D(Collision2D col){
 		SetWanderPoint ();
 		Debug.Log ("col");
+	}
+
+	void OnTriggerEnter2D(Collider2D col){
+		Debug.Log ("stolen");
+		if(col.name.Contains("character")){
+			/*for(int i = 0; i < player.GetComponent<playerControl> ().followers.Count; i++){
+				if (col == player.GetComponent<playerControl> ().followers[i]){
+					player.GetComponent<playerControl> ().followers.RemoveAt (i);
+					break;
+				}
+			}*/
+			player.GetComponent<playerControl> ().followers.Remove (col.gameObject);
+			CanFlee = true;
+			col.gameObject.GetComponent<characterScript> ().collected = false;
+			col.gameObject.GetComponent<characterScript> ().IsStolen = true;
+			col.gameObject.GetComponent<characterScript> ().seekPos = gameObject.transform.position;
+			followers.Add (col.gameObject);
+
+		}
 	}
 }

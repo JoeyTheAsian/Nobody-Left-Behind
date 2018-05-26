@@ -680,6 +680,34 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 364920dad6045024d91ebb26327b5b9c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1622946187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1622946188}
+  m_Layer: 0
+  m_Name: manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1622946188
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1622946187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.3358011, y: -10.743855, z: -0.13237908}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1734242920
 Prefab:
   m_ObjectHideFlags: 0
@@ -790,7 +818,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4712962703186060, guid: bf28030bfc2879c4d8561abf4b8aeb02, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -9.86
+      value: -9.58
       objectReference: {fileID: 0}
     - target: {fileID: 4712962703186060, guid: bf28030bfc2879c4d8561abf4b8aeb02, type: 2}
       propertyPath: m_LocalPosition.z
