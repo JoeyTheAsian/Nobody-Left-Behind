@@ -30,7 +30,7 @@ public class enemyAI : MonoBehaviour {
 		Vector2 tempPos = transform.position;
 		if(CheckDistance()){
 			Seek (target.transform.position);
-			RotateTowardsPlayer ();
+			//RotateTowardsPlayer ();
 		}
 		else{
 			Wander ();
@@ -78,7 +78,9 @@ public class enemyAI : MonoBehaviour {
 		//angle = angle * Mathf.Deg2Rad;
 		Vector2 seekPoint;
 		transform.Rotate (new Vector3 (0f, 0f, angle));
+
 		seekPoint = transform.up * wanderDistance;
+		transform.rotation = Quaternion.identity;
 		wanderPoint = seekPoint;
 	}
 
