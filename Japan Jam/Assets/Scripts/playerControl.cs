@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerControl : MonoBehaviour {
 
@@ -22,6 +23,7 @@ public class playerControl : MonoBehaviour {
     public Sprite down;
     public Sprite right;
     public Sprite left;
+    public RectTransform credits;
 
     public int frameCount;
 	public int frameIndex = 0;
@@ -29,6 +31,7 @@ public class playerControl : MonoBehaviour {
 	public bool IsMoving = false;
 
 	public bool CanControl = true;
+    float exitTimer = 10f;
 
 
 	// Use this for initialization
@@ -40,8 +43,6 @@ public class playerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
 		position = transform.position;
 		Vector2 ultimate = Vector2.zero;
 		if (frameIndex == 0){
@@ -67,6 +68,15 @@ public class playerControl : MonoBehaviour {
         if (!IsMoving)
         {
             footstep.Stop();
+        }
+        if (!CanControl)
+        {
+            credits.transform.Translate(new Vector3(0f, Time.deltaTime * 5.0f, 0f));
+            exitTimer -= Time.deltaTime;
+            if(exitTimer <= 0f)
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
         }
     }
 
