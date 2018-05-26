@@ -47,6 +47,8 @@ public class enemyAI : MonoBehaviour {
 		velocity += acceleration;
 		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
 		tempPos += velocity;
+        Vector3 direction = velocity.normalized;
+
 		transform.position = tempPos;
 
 		ManageFollowers ();
