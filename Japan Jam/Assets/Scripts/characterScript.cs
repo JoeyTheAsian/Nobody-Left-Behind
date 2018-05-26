@@ -33,6 +33,9 @@ public class characterScript : MonoBehaviour {
 			tempPos += velocity;
 			transform.position = tempPos;
 		}
+		if(!player.GetComponent<playerControl>().IsMoving && collected){
+			SlowDown ();
+		}
 
 	}
 
@@ -46,5 +49,15 @@ public class characterScript : MonoBehaviour {
 
 	void ApplyForce(Vector2 force){
 		acceleration += force;
+	}
+
+	void SlowDown(){
+		Vector2 tempPos = transform.position;
+		velocity *= 0.8f;
+		if(velocity.magnitude < 0.1f){
+			velocity = Vector2.zero;
+		}
+		tempPos += velocity;
+		transform.position = tempPos;
 	}
 }
