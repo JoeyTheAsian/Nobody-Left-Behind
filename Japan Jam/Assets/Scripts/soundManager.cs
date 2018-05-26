@@ -9,7 +9,7 @@ public class soundManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //efxSource = GetComponent<AudioSource>();
-        timer = 5f;
+        timer = 15f;
     }
 
     // Update is called once per frame
@@ -19,7 +19,7 @@ public class soundManager : MonoBehaviour {
             Debug.Log("Playing");
             efxSource.Play();
            
-            timer = 5f; 
+            timer = 15f; 
         }
     }
 }

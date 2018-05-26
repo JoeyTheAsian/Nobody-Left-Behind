@@ -28,7 +28,7 @@ public class Manager : MonoBehaviour {
 	void Update () {
 		
 	}
-
+    
 	void SpawnBounds(){
 		for (int i = 0; i < boundsHeight * 2; i+=(int)spawnDistance) {
 			Instantiate (tree, new Vector2 ((-boundWidth / 2), boundsHeight - i), Quaternion.identity);
