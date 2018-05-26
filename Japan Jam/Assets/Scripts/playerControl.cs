@@ -18,7 +18,12 @@ public class playerControl : MonoBehaviour {
 
 	public Vector2[] prevPos;
 
-	public int frameCount;
+    public Sprite up;
+    public Sprite down;
+    public Sprite right;
+    public Sprite left;
+
+    public int frameCount;
 	public int frameIndex = 0;
 
 	public bool IsMoving = false;
@@ -91,25 +96,47 @@ public class playerControl : MonoBehaviour {
 			frameIndex = 0;
 		}
 	}
-
+    void SetSprite(string dir)
+    {
+        if (dir == "Right")
+        {
+            GetComponent<SpriteRenderer>().sprite = right;
+        }
+        else if (dir == "Left")
+        {
+            GetComponent<SpriteRenderer>().sprite = left;
+        }
+        else if (dir == "Up")
+        {
+            GetComponent<SpriteRenderer>().sprite = up;
+        }
+        else if (dir == "Down")
+        {
+            GetComponent<SpriteRenderer>().sprite = down;
+        }
+    }
 	void Movement(){
 		//Vector2 tempPos = transform.position;
 		if (Input.GetKey(KeyCode.A)){
+            SetSprite("Left");
 			//position.x -= speed;
 			ApplyForce(-speedForce);
 		}
 		if (Input.GetKey(KeyCode.D)){
+            SetSprite("Right");
 			//position.x += speed;
 			ApplyForce(speedForce);
 
 		}
 		if (Input.GetKey(KeyCode.W)){
+            SetSprite("Up");
 			//position.y += speed;
 			ApplyForce(speedForceVert);
 
 
 		}
 		if (Input.GetKey(KeyCode.S)){
+            SetSprite("Down");
 			//position.y -= speed;
 			ApplyForce(-speedForceVert);
 
