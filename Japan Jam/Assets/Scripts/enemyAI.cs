@@ -82,7 +82,7 @@ public class enemyAI : MonoBehaviour {
         {
             if((follower.transform.position - transform.position).magnitude < aggroRadius 
                 //check distance between target and replace if new target is closer
-                && (follower.transform.position - transform.position).magnitude < (target.transform.position - transform.position).magnitude)
+				&& (follower.transform.position - transform.position).magnitude < (target.transform.position - transform.position).magnitude && follower.GetComponent<characterScript>().collected)
             {
                 target = follower;
                 return true;
@@ -137,12 +137,15 @@ public class enemyAI : MonoBehaviour {
 					break;
 				}
 			}*/
-			player.GetComponent<playerControl> ().followers.Remove (col.gameObject);
-			CanFlee = true;
-			col.gameObject.GetComponent<characterScript> ().collected = false;
-			col.gameObject.GetComponent<characterScript> ().IsStolen = true;
-			col.gameObject.GetComponent<characterScript> ().seekPos = gameObject.transform.position;
-			followers.Add (col.gameObject);
+			if (col.gameObject.GetComponent<characterScript>().collected){
+				player.GetComponent<playerControl> ().followers.Remove (col.gameObject);
+				CanFlee = true;
+				col.gameObject.GetComponent<characterScript> ().collected = false;
+				col.gameObject.GetComponent<characterScript> ().IsStolen = true;
+				col.gameObject.GetComponent<characterScript> ().seekPos = gameObject.transform.position;
+				followers.Add (col.gameObject);
+			}
+
 
 		}
 	}
