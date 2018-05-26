@@ -2250,6 +2250,21 @@ Prefab:
       propertyPath: m_ClearFlags
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
+        type: 2}
+      propertyPath: speedForce.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
+        type: 2}
+      propertyPath: maxForce
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81860263e33be4d48b4212ea92353f4d, type: 2}
   m_IsPrefabParent: 0

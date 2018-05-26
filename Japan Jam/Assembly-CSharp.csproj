@@ -51,13 +51,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\characterScript.cs" />
      <Compile Include="Assets\Scripts\enemyAI.cs" />
+     <Compile Include="Assets\Scripts\exitScript.cs" />
      <Compile Include="Assets\Scripts\playerControl.cs" />
- <Reference Include="UnityEditor.StandardEvents">
- <HintPath>C:/Users/natha/Documents/gitHub/Japan-Jam-Real/Japan Jam/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
- </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
  <HintPath>C:/Users/natha/Documents/gitHub/Japan-Jam-Real/Japan Jam/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.StandardEvents">
+ <HintPath>C:/Users/natha/Documents/gitHub/Japan-Jam-Real/Japan Jam/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity2018/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

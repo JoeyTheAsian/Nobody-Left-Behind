@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class playerControl : MonoBehaviour {
 
-	public float speed;
+	public Vector2 speedForce;
+	private Vector2 speedForceVert;
+
+	public float maxSpeed;
+	public float maxForce;
+	public Vector2 acceleration;
+	public Vector2 velocity;
+	public Vector2 position;
 
 	public List<GameObject> followers;
 
@@ -20,10 +27,13 @@ public class playerControl : MonoBehaviour {
 	void Start () {
 		followers = new List<GameObject> ();
 		prevPos = new Vector2[10];
+		speedForceVert = Vector2.up * speedForce.magnitude;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		position = transform.position;
+		Vector2 ultimate = Vector2.zero;
 		if (frameIndex == 0){
 			UpdatePrev ();
 		}
@@ -37,10 +47,21 @@ public class playerControl : MonoBehaviour {
 		CheckMoving ();
 	}
 
+	void ApplyForce(Vector2 force){
+		acceleration += force;
+	}
+
 	void CheckMoving(){
-		if ((Vector2)transform.position == prevPos[0]){
+		if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.D)){
 			IsMoving = false;
+			velocity = Vector2.zero;
+			acceleration = Vector2.zero;
 		}
+		/*if ((Vector2)transform.position == prevPos[0]){
+			IsMoving = false;
+			velocity = Vector2.zero;
+			acceleration = Vector2.zero;
+		}*/
 		else{
 			IsMoving = true;
 		}
@@ -54,23 +75,33 @@ public class playerControl : MonoBehaviour {
 	}
 
 	void Movement(){
-		Vector2 tempPos = transform.position;
+		//Vector2 tempPos = transform.position;
 		if (Input.GetKey(KeyCode.A)){
-			tempPos.x -= speed;
+			//position.x -= speed;
+			ApplyForce(-speedForce);
 		}
 		if (Input.GetKey(KeyCode.D)){
-			tempPos.x += speed;
+			//position.x += speed;
+			ApplyForce(speedForce);
 
 		}
 		if (Input.GetKey(KeyCode.W)){
-			tempPos.y += speed;
+			//position.y += speed;
+			ApplyForce(speedForceVert);
+
 
 		}
 		if (Input.GetKey(KeyCode.S)){
-			tempPos.y -= speed;
+			//position.y -= speed;
+			ApplyForce(-speedForceVert);
 
 		}
-		transform.position = tempPos;
+		velocity += acceleration;
+		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
+		acceleration = Vector2.zero;
+		position += velocity;
+		transform.position = position;
+		//transform.position = tempPos;
 	}
 
 	void AddFollower(GameObject follower){
