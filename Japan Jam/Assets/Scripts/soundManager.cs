@@ -19,7 +19,7 @@ public class soundManager : MonoBehaviour {
             Debug.Log("Playing");
             efxSource.Play();
            
-            timer = 5f;
+            timer = 5f; 
         }
     }
 }
