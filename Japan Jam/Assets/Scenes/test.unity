@@ -639,6 +639,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1622946188}
+  - component: {fileID: 1622946189}
   m_Layer: 0
   m_Name: manager
   m_TagString: Untagged
@@ -659,6 +660,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1622946189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1622946187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373fa6d33439f4a4d92e59dffcda8812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundsHeight: 300
+  boundWidth: 1000
+  tree: {fileID: 1215846319139566, guid: bf28030bfc2879c4d8561abf4b8aeb02, type: 2}
+  character: {fileID: 1258511352822510, guid: 3382a623af696314cb11ead58ae79ec0, type: 2}
+  treeNum: 500
+  characterNum: 10
 --- !u!1001 &1734242920
 Prefab:
   m_ObjectHideFlags: 0
