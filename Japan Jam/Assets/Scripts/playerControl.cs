@@ -90,7 +90,7 @@ public class playerControl : MonoBehaviour {
 			//Debug.Log (i + 1);
 			tempArr [i] = prevPos [i];
 		}
-		Debug.Log (tempArr);
+		//Debug.Log (tempArr);
 
 		prevPos [0] = transform.position;
 
@@ -108,6 +108,11 @@ public class playerControl : MonoBehaviour {
 				Debug.Log ("collected");
 			}
 
+		}
+		else if(col.name.Contains("exit")){
+			if (col.GetComponent<exitScript>().IsOpen){
+				Debug.Log ("exit!");
+			}
 		}
 	}
 
