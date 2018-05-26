@@ -12,6 +12,7 @@ public class Manager : MonoBehaviour {
 	public float treeNum;
 	public float characterNum;
 
+
 	private Vector2 topLeft;
 	private float spawnDistance;
 
