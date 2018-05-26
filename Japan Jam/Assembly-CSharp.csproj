@@ -51,7 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\characterScript.cs" />
      <Compile Include="Assets\Scripts\enemyAI.cs" />
+     <Compile Include="Assets\Scripts\exitScript.cs" />
      <Compile Include="Assets\Scripts\playerControl.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/Users/natha/Documents/gitHub/Japan-Jam-Real/Japan Jam/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
