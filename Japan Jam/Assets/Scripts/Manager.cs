@@ -8,10 +8,10 @@ public class Manager : MonoBehaviour {
 	public float boundWidth;
 	public GameObject tree;
 	public GameObject character;
+	public GameObject exit;
 
 	public float treeNum;
 	public float characterNum;
-
 
 	private Vector2 topLeft;
 	private float spawnDistance;
@@ -19,7 +19,7 @@ public class Manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		topLeft = new Vector2 (-boundWidth / 2, boundsHeight / 2);
-		spawnDistance = 3f;
+		spawnDistance = 5f;
 		SpawnBounds ();
 		SpawnObstacles ();
 		SpawnCharacters ();
@@ -40,7 +40,13 @@ public class Manager : MonoBehaviour {
 		for (int i = 0; i < boundWidth; i+=(int)spawnDistance) {
 			Instantiate (tree, new Vector2 (boundWidth / 2 - i, boundsHeight), Quaternion.identity);
 		}
-		for (int i = 0; i < boundWidth; i+=(int)spawnDistance) {
+		for (int i = 0; i < boundWidth / 2; i+=(int)spawnDistance) {
+			//Instantiate (exit, new Vector2 (boundWidth - i, -boundsHeight), Quaternion.identity);
+			Instantiate (tree, new Vector2 (boundWidth / 2 - i, -boundsHeight), Quaternion.identity);
+		}
+		Instantiate (exit, new Vector2 (0, -boundsHeight), Quaternion.identity);
+		for (int i = (int)boundWidth / 2 + (int)spawnDistance; i < boundWidth; i+=(int)spawnDistance) {
+			//Instantiate (exit, new Vector2 (boundWidth - i, -boundsHeight), Quaternion.identity);
 			Instantiate (tree, new Vector2 (boundWidth / 2 - i, -boundsHeight), Quaternion.identity);
 		}
 	}

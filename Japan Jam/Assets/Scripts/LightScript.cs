@@ -24,7 +24,7 @@ public class LightScript : MonoBehaviour {
 		intensity = 1f + followCount;
 		range = 17f + 3f * followCount;
 
-		//gameObject.GetComponentInChildren<Light> ().intensity = intensity;
+		gameObject.GetComponentInChildren<Light> ().intensity = intensity;
 		gameObject.GetComponentInChildren<Light> ().range = range;
 
 	}
