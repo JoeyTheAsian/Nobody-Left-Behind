@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1258511352822510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.7, y: 0.61, z: 0}
+  m_LocalPosition: {x: 11.58, y: 5.51, z: 0}
   m_LocalScale: {x: 5.527333, y: 5.527335, z: 5.527335}
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collected: 0
-  maxSpeed: 0.5
+  maxSpeed: 0.3
   maxForce: 0.1
   acceleration: {x: 0, y: 0}
   velocity: {x: 0, y: 0}
@@ -101,7 +101,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 958a8067771ebed48b701ad0ce0ede67, type: 2}
+  - {fileID: 2100000, guid: 9586743d01522254fab5b64243f99416, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

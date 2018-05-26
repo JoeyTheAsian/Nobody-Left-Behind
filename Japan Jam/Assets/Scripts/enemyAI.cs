@@ -35,6 +35,7 @@ public class enemyAI : MonoBehaviour {
 		Vector2 tempPos = transform.position;
 		if(CheckDistance()){
 			Seek (target.transform.position);
+            Debug.Log(target.name);
 			//RotateTowardsPlayer ();
 		}
 		else if(CanFlee){
