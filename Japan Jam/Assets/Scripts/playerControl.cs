@@ -12,6 +12,7 @@ public class playerControl : MonoBehaviour {
 	public Vector2 acceleration;
 	public Vector2 velocity;
 	public Vector2 position;
+    public AudioSource footstep;
 
 	public List<GameObject> followers;
 
@@ -20,7 +21,7 @@ public class playerControl : MonoBehaviour {
 	public int frameCount;
 	public int frameIndex = 0;
 
-	public bool IsMoving = true;
+	public bool IsMoving = false;
 
 	public bool CanControl = true;
 
@@ -34,6 +35,8 @@ public class playerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
 		position = transform.position;
 		Vector2 ultimate = Vector2.zero;
 		if (frameIndex == 0){
@@ -52,7 +55,15 @@ public class playerControl : MonoBehaviour {
 		IndexControl ();
 
 		CheckMoving ();
-	}
+        if (IsMoving && !footstep.isPlaying)
+        {
+            footstep.Play();
+        }
+        if (!IsMoving)
+        {
+            footstep.Stop();
+        }
+    }
 
 	void ApplyForce(Vector2 force){
 		acceleration += force;

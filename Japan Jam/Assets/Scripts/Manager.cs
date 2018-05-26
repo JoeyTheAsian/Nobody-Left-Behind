@@ -21,7 +21,7 @@ public class Manager : MonoBehaviour {
 	void Update () {
 		
 	}
-
+    
 	void SpawnBounds(){
 		for (int i = 0; i < boundsHeight / spawnDistance; i+=spawnDistance) {
 			Instantiate (tree, new Vector2 (-boundWidth / 2), 9);
