@@ -16,7 +16,7 @@ public class enemyAI : MonoBehaviour {
 	public float wanderRadius;
 
 	public GameObject player;
-
+    GameObject target;
 	// Use this for initialization
 	void Start () {
 		position = transform.position;
@@ -29,7 +29,7 @@ public class enemyAI : MonoBehaviour {
 		Vector2 ultimate = Vector2.zero;
 		Vector2 tempPos = transform.position;
 		if(CheckDistance()){
-			Seek (player.transform.position);
+			Seek (target.transform.position);
 			RotateTowardsPlayer ();
 		}
 		else{
@@ -55,8 +55,20 @@ public class enemyAI : MonoBehaviour {
 
 	bool CheckDistance(){
 		if((player.transform.position - transform.position).magnitude < aggroRadius){
+            target = player;
 			return true;
 		}
+        //check agains followers as well
+        foreach(GameObject follower in player.GetComponent<playerControl>().followers)
+        {
+            if((follower.transform.position - transform.position).magnitude < aggroRadius 
+                //check distance between target and replace if new target is closer
+                && (follower.transform.position - transform.position).magnitude < (target.transform.position - transform.position).magnitude)
+            {
+                target = follower;
+                return true;
+            }
+        }
 		return false;
 	}
 
