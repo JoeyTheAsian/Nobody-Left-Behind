@@ -63,11 +63,11 @@ public class enemyAI : MonoBehaviour {
         {
             SetSprite("Right");
         }
-        if (angle >= 135f && angle < 180f)
+        if (angle >= 135f && angle < 225f)
         {
             SetSprite("Down");
         }
-        if (angle >= 180f && angle < 225f)
+        if (angle >= 225f && angle < 315f)
         {
             SetSprite("Left");  
         }
@@ -142,7 +142,7 @@ public class enemyAI : MonoBehaviour {
 		angle = Random.Range (0, 360);
 		//angle = angle * Mathf.Deg2Rad;
 		Vector2 seekPoint;
-		transform.Rotate (new Vector3 (0f, 0f, angle));
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
 		seekPoint = transform.up * wanderDistance;
 		transform.rotation = Quaternion.identity;

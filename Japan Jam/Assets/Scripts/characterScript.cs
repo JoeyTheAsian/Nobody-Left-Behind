@@ -49,11 +49,11 @@ public class characterScript : MonoBehaviour {
             {
                 SetSprite("Right");
             }
-            if (angle >= 135f && angle < 180f)
+            if (angle >= 135f && angle < 225f)
             {
                 SetSprite("Down");
             }
-            if (angle >= 180f && angle < 225f)
+            if (angle >= 225f && angle < 315f)
             {
                 SetSprite("Left");
             }
@@ -86,11 +86,11 @@ public class characterScript : MonoBehaviour {
             {
                 SetSprite("Right");
             }
-            if (angle >= 135f && angle < 180f)
+            if (angle >= 135f && angle <225f)
             {
                 SetSprite("Down");
             }
-            if (angle >= 180f && angle < 225f)
+            if (angle >= 225f && angle < 315f)
             {
                 SetSprite("Left");
             }
