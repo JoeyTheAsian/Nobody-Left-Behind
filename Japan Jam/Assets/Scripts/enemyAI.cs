@@ -23,6 +23,8 @@ public class enemyAI : MonoBehaviour {
 
 	public List<GameObject> followers;
 
+    public GameObject follow;
+
 	public GameObject player;
     GameObject target;
 	// Use this for initialization
@@ -123,6 +125,25 @@ public class enemyAI : MonoBehaviour {
             target = player;
 			return true;
 		}
+        else if (CanFlee)
+        {
+            if((player.transform.position - transform.position).magnitude > aggroRadius * 2 && CanFlee)
+            {
+                CanFlee = false;
+                Manager man = GameObject.Find("Manager").GetComponent<Manager>();
+
+                foreach (GameObject f in followers)
+                {
+                    float rX = Random.Range(man.topLeft.x + man.boundWidth / 10, man.topLeft.x + man.boundWidth * 0.9f);
+                    float rY = Random.Range(man.topLeft.y + man.boundsHeight / 10, man.topLeft.y + man.boundsHeight * 2 * 0.9f) - man.boundsHeight * 1.5f;
+                    Instantiate(follow, new Vector2(rX, rY), Quaternion.identity);
+                    //followers.Remove(f);
+                    Destroy(f);
+                }
+                followers.Clear();
+            }
+            return false;
+        }
         //check agains followers as well
         foreach(GameObject follower in player.GetComponent<playerControl>().followers)
         {
@@ -138,18 +159,31 @@ public class enemyAI : MonoBehaviour {
 	}
 
 	void SetWanderPoint(){
-		float angle;
-		angle = Random.Range (0, 360);
+        /*float angle;
+		angle = Random.Range (0, 360) * Mathf.Deg2Rad;
 		//angle = angle * Mathf.Deg2Rad;
 		Vector2 seekPoint;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        //transform.rotation = transform.rotation * Quaternion.Euler(0f, 0f, angle);
 
-		seekPoint = transform.up * wanderDistance;
-		transform.rotation = Quaternion.identity;
-		wanderPoint = seekPoint;
-	}
+        Vector2 plusVec = Vector2.up;
+        float sin = Mathf.Sin(angle);
+        float cos = Mathf.Cos(angle);
+        plusVec.x = (cos * plusVec.x) - (sin * plusVec.y);
+        plusVec.y = (cos * plusVec.y) + (sin * plusVec.x);
+
+
+
+        seekPoint = (Vector2)(transform.up * wanderDistance) + plusVec;
+		//transform.rotation = Quaternion.identity;
+		wanderPoint = (Vector2)transform.position + seekPoint;*/
+        Manager man = GameObject.Find("Manager").GetComponent<Manager>();
+        float rX = Random.Range(man.topLeft.x, man.topLeft.x + man.boundWidth);
+        float rY = Random.Range(man.topLeft.y, man.topLeft.y + man.boundsHeight * 2) - man.boundsHeight * 1.5f;
+        wanderPoint = new Vector2(rX, rY);
+    }
 
 	void Wander(){
+        //Debug.Log(wanderPoint.x + "," + wanderPoint.y);
 		if((wanderPoint - (Vector2)transform.position).magnitude < wanderRadius || !IsWandering){
 			SetWanderPoint ();
 			IsWandering = true;
@@ -171,7 +205,7 @@ public class enemyAI : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col){
 		SetWanderPoint ();
-		Debug.Log ("col");
+		//Debug.Log ("col");
 	}
 
 	void OnTriggerEnter2D(Collider2D col){

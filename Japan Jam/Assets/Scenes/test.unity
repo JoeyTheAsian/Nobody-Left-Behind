@@ -406,7 +406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1285}
+  m_AnchoredPosition: {x: 0, y: -2090}
   m_SizeDelta: {x: 10000, y: 10000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &884096910
@@ -447,20 +447,28 @@ MonoBehaviour:
 
 
 
+
+
+
     Joey Tong - Production, Art, Programming
 
 
 
 
 
-    Sayaka Okamoto - Sound, Programming
+
+
+
+    Sayaka Okamoto - Art, Design
 
 
 
 
 
 
-    Yukino Watanabe - Art
+
+
+    Yukino Watanabe - Sound, Programming, Art
 
 '
 --- !u!222 &884096911

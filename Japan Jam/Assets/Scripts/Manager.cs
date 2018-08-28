@@ -16,7 +16,7 @@ public class Manager : MonoBehaviour {
 	public float characterNum;
     public float enemyNum;
 
-	private Vector2 topLeft;
+	public Vector2 topLeft;
 	private float spawnDistance;
 
 	// Use this for initialization
@@ -66,8 +66,8 @@ public class Manager : MonoBehaviour {
 
 	void SpawnCharacters(){
 		for (int i = 0; i < characterNum; i++) {
-			float rX = Random.Range (topLeft.x, topLeft.x + boundWidth);
-			float rY = Random.Range (topLeft.y, topLeft.y + boundsHeight * 2) - boundsHeight * 1.5f;
+			float rX = Random.Range (topLeft.x + boundWidth / 10, topLeft.x + boundWidth * 0.9f);
+			float rY = Random.Range (topLeft.y + boundsHeight / 10, topLeft.y + boundsHeight * 2 * 0.9f) - boundsHeight * 1.5f;
 			Instantiate (character, new Vector2 (rX, rY), Quaternion.identity);
 		}
 	}

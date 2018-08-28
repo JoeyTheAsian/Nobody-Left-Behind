@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 61746253711745222}
   m_Layer: 0
   m_Name: exitPH
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsOpen: 0
-  followCount: 5
+  followCount: 9
   player: {fileID: 0}
 --- !u!212 &212669460382222342
 SpriteRenderer:

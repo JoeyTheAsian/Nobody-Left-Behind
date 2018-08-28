@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4784730208047572}
   m_Layer: 0
   m_Name: Tree - Copy
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

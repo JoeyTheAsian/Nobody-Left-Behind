@@ -104,7 +104,7 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0}
   velocity: {x: 0, y: 0}
   position: {x: 0, y: 0}
-  aggroRadius: 15
+  aggroRadius: 50
   wanderDistance: 20
   wanderPoint: {x: 100, y: 100}
   IsWandering: 0
@@ -115,6 +115,7 @@ MonoBehaviour:
   left: {fileID: 21300000, guid: 6872536f9244faf428ed56e92045ab70, type: 3}
   CanFlee: 0
   followers: []
+  follow: {fileID: 1258511352822510, guid: 3382a623af696314cb11ead58ae79ec0, type: 2}
   player: {fileID: 0}
 --- !u!212 &212622031929145824
 SpriteRenderer:

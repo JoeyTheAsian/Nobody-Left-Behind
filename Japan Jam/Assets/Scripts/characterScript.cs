@@ -141,4 +141,15 @@ public class characterScript : MonoBehaviour {
 		tempPos += velocity;
 		transform.position = tempPos;
 	}
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "object")
+        {
+            Manager man = GameObject.Find("Manager").GetComponent<Manager>();
+            float rX = Random.Range(man.topLeft.x, man.topLeft.x + man.boundWidth);
+            float rY = Random.Range(man.topLeft.y, man.topLeft.y + man.boundsHeight * 2) - man.boundsHeight * 1.5f;
+            transform.position = new Vector2(rX, rY);
+        }
+    }
 }
