@@ -153,6 +153,7 @@ MonoBehaviour:
   treeNum: 80
   characterNum: 10
   enemyNum: 10
+  topLeft: {x: 0, y: 0}
 --- !u!4 &23211286
 Transform:
   m_ObjectHideFlags: 0
@@ -369,7 +370,11 @@ Prefab:
     - target: {fileID: 212564747997298268, guid: 99cc34fae6a56644e835247f0029e877,
         type: 2}
       propertyPath: m_SortingOrder
-      value: -100
+      value: -32768
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173088325281234, guid: 99cc34fae6a56644e835247f0029e877, type: 2}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99cc34fae6a56644e835247f0029e877, type: 2}

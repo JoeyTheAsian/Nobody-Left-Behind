@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4614389222396020}
   - component: {fileID: 212116170000925072}
+  - component: {fileID: 114838066671792994}
   m_Layer: 0
   m_Name: FallenTree
   m_TagString: Untagged
@@ -37,6 +38,7 @@ GameObject:
   - component: {fileID: 4702134164671270}
   - component: {fileID: 212269993297624204}
   - component: {fileID: 61686928455826074}
+  - component: {fileID: 114593181282634528}
   m_Layer: 0
   m_Name: Stump
   m_TagString: Untagged
@@ -125,6 +127,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.7, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &114593181282634528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628174063240452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed7dc6423b5b1248897125aca88990f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 212269993297624204}
+  tree: 0
+--- !u!114 &114838066671792994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1425818939315178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed7dc6423b5b1248897125aca88990f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 212116170000925072}
+  tree: 0
 --- !u!212 &212116170000925072
 SpriteRenderer:
   m_ObjectHideFlags: 1

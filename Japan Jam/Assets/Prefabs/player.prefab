@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 61601906751037854}
   - component: {fileID: 50934657962436812}
   - component: {fileID: 114253728052303928}
+  - component: {fileID: 114867970356130988}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -388,10 +389,27 @@ MonoBehaviour:
   footstep: {fileID: 82993985262129442}
   followers: []
   prevPos: []
+  up: {fileID: 0}
+  down: {fileID: 0}
+  right: {fileID: 0}
+  left: {fileID: 0}
+  credits: {fileID: 0}
   frameCount: 7
   frameIndex: 0
   IsMoving: 1
   CanControl: 1
+--- !u!114 &114867970356130988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1417179953364310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed7dc6423b5b1248897125aca88990f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 212642012823027016}
 --- !u!124 &124820452549637346
 Behaviour:
   m_ObjectHideFlags: 1

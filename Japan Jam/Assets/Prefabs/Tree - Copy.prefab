@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4136418683111234}
   - component: {fileID: 212136317646756288}
   - component: {fileID: 61546175270080836}
+  - component: {fileID: 114326348335692852}
   m_Layer: 0
   m_Name: Wood
   m_TagString: Untagged
@@ -50,7 +51,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1585287330543006}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.37, z: 0}
+  m_LocalPosition: {x: 0, y: 3.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4784730208047572}
@@ -63,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1573696238206390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1573975, y: -1.597758, z: -0.29445553}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4136418683111234}
@@ -95,6 +96,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.3, y: 8.6}
   m_EdgeRadius: 0
+--- !u!114 &114326348335692852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585287330543006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed7dc6423b5b1248897125aca88990f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 212136317646756288}
+  tree: 1
 --- !u!212 &212136317646756288
 SpriteRenderer:
   m_ObjectHideFlags: 1
