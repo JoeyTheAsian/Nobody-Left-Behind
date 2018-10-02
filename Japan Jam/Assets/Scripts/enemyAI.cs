@@ -41,7 +41,6 @@ public class enemyAI : MonoBehaviour {
 		Vector2 tempPos = transform.position;
 		if(CheckDistance()){
 			Seek (target.transform.position);
-            Debug.Log(target.name);
 			//RotateTowardsPlayer ();
 		}
 		else if(CanFlee){
@@ -209,7 +208,8 @@ public class enemyAI : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		Debug.Log ("stolen");
+		//Debug.Log ("stolen");
+        //Debug.Log(col.name);
 		if(col.name.Contains("character")){
 			/*for(int i = 0; i < player.GetComponent<playerControl> ().followers.Count; i++){
 				if (col == player.GetComponent<playerControl> ().followers[i]){
@@ -225,8 +225,10 @@ public class enemyAI : MonoBehaviour {
 				col.gameObject.GetComponent<characterScript> ().seekPos = gameObject.transform.position;
 				followers.Add (col.gameObject);
 			}
-
-
 		}
+        else if (col.name.Contains("flashlight"))
+        {
+            CanFlee = true;
+        }
 	}
 }

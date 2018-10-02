@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class playerControl : MonoBehaviour {
 
@@ -25,35 +26,110 @@ public class playerControl : MonoBehaviour {
     public Sprite left;
     public RectTransform credits;
 
+    public SpriteRenderer spriteRenderer;
+
     public int frameCount;
 	public int frameIndex = 0;
 
 	public bool IsMoving = false;
 
-	public bool CanControl = true;
+    public bool CanControl = true;
     float exitTimer = 10f;
 
+    bool hit = false;
+    public static float hitFlashTime = .5f;
+    float hitFlashTimer;
 
+    public Image healthImage;
+    public int health;
+    public Manager manager;
+
+    public GameObject flashLight;
+    public Image flashlightCooldownBar;
+    public float flashlightCooldownTime;
+    public float flashlightCooldownTimer;
+    public float flashlightActiveTime;
+    float flashlightActiveTimer;
+    public bool flashlightActive = false;
+    public bool flashlightCooldown = false;
+
+    public float levelLoadTime;
+    public float levelLoadTimer;
+    public Image fadePanel;
 	// Use this for initialization
 	void Start () {
 		followers = new List<GameObject> ();
 		prevPos = new Vector2[10];
 		speedForceVert = Vector2.up * speedForce.magnitude;
+        hitFlashTimer = hitFlashTime;
+        flashlightCooldownTimer = flashlightCooldownTime;
+        flashlightActiveTimer = flashlightActiveTime;
+        levelLoadTimer = levelLoadTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        healthImage.transform.localScale = new Vector2(health / 3f, healthImage.transform.localScale.y);
+        if (health <= 0) {
+            //CanControl = false;
+           // manager.GameOver();
+        }
+        if (flashlightActive) {
+            flashlightActiveTimer -= Time.deltaTime;
+            flashLight.SetActive(true);
+            if(flashlightActiveTimer <= 0f)
+            {
+                flashlightActive = false;
+                flashLight.SetActive(false);
+                flashlightActiveTimer = flashlightActiveTime;
+            }
+        }
+        if (flashlightCooldownTimer <= 0)
+        {
+            flashlightCooldown = false;
+            flashlightCooldownTimer = flashlightCooldownTime;
+        }
+        if (flashlightCooldown) {
+            flashlightCooldownTimer -= Time.deltaTime;
+            flashlightCooldownBar.rectTransform.localScale = new Vector2(flashlightCooldownTimer/flashlightCooldownTime, flashlightCooldownBar.transform.localScale.y);
+        }
 		position = transform.position;
 		Vector2 ultimate = Vector2.zero;
 		if (frameIndex == 0){
 			UpdatePrev ();
 		}
-
+        if (hit)
+        {
+            spriteRenderer.color = Color.red;
+            hitFlashTimer -= Time.deltaTime;
+            if(hitFlashTimer <= 0f)
+            {
+                hit = false;
+                hitFlashTimer = hitFlashTime;
+                spriteRenderer.color = Color.white;
+            }
+        }
 		if(CanControl){
 			Movement ();
 		}
 		else{
 			AutoMove ();
+            if(levelLoadTimer > 0f)
+            {
+                levelLoadTimer -= Time.deltaTime;
+                fadePanel.color = new Vector4(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, (1f-(levelLoadTimer/levelLoadTime)));
+            }
+            else
+            {
+                manager.LevelUp();
+                manager.GenerateLevel();
+                health = 3;
+                followers.Clear();
+                gameObject.transform.position = new Vector3(0f, 0f, 0f);
+                fadePanel.color = new Vector4(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0f);
+                CanControl = true;
+                levelLoadTimer = levelLoadTime;
+            }
 		}
 
 		FollowerMovement ();
@@ -71,11 +147,12 @@ public class playerControl : MonoBehaviour {
         }
         if (!CanControl)
         {
-            credits.transform.Translate(new Vector3(0f, Time.deltaTime * 10.0f, 0f));
+            //credits.transform.Translate(new Vector3(0f, Time.deltaTime * 10.0f, 0f));
             exitTimer -= Time.deltaTime;
             if(exitTimer <= 0f)
             {
-                SceneManager.LoadScene("Main Menu");
+
+                //SceneManager.LoadScene("Main Menu");
             }
         }
     }
@@ -106,6 +183,25 @@ public class playerControl : MonoBehaviour {
 			frameIndex = 0;
 		}
 	}
+    void SetFlashlight(string dir)
+    {
+        if (dir == "Right")
+        {
+            flashLight.transform.rotation = Quaternion.Euler(new Vector3(0f,0f, 90f));
+        }
+        else if (dir == "Left")
+        {
+            flashLight.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -90f));
+        }
+        else if (dir == "Up")
+        {
+            flashLight.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+        }
+        else if (dir == "Down")
+        {
+            flashLight.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
+    }
     void SetSprite(string dir)
     {
         if (dir == "Right")
@@ -126,29 +222,37 @@ public class playerControl : MonoBehaviour {
         }
     }
 	void Movement(){
+        if (Input.GetKey(KeyCode.Space) && !flashlightCooldown) {
+            flashlightActive = true;
+            flashlightCooldown = true;
+        }
 		//Vector2 tempPos = transform.position;
 		if (Input.GetKey(KeyCode.A)){
             SetSprite("Left");
+            SetFlashlight("Left");
 			//position.x -= speed;
 			ApplyForce(-speedForce);
 		}
 		if (Input.GetKey(KeyCode.D)){
             SetSprite("Right");
-			//position.x += speed;
-			ApplyForce(speedForce);
+            SetFlashlight("Right");
+            //position.x += speed;
+            ApplyForce(speedForce);
 
 		}
 		if (Input.GetKey(KeyCode.W)){
             SetSprite("Up");
-			//position.y += speed;
-			ApplyForce(speedForceVert);
+            SetFlashlight("Up");
+            //position.y += speed;
+            ApplyForce(speedForceVert);
 
 
 		}
 		if (Input.GetKey(KeyCode.S)){
             SetSprite("Down");
-			//position.y -= speed;
-			ApplyForce(-speedForceVert);
+            SetFlashlight("Down");
+            //position.y -= speed;
+            ApplyForce(-speedForceVert);
 
 		}
 		velocity += acceleration;
@@ -192,6 +296,7 @@ public class playerControl : MonoBehaviour {
 		position = transform.position;
 		position += velocity;
 		transform.position = position;
+
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
@@ -201,9 +306,33 @@ public class playerControl : MonoBehaviour {
 				AddFollower (col.gameObject);
 				Debug.Log ("collected");
 			}
-
 		}
-		else if(col.name.Contains("exit")){
+        else if (col.name.Contains("enemy"))
+        {
+            if (!hit)
+            {
+
+                Debug.Log("enemy hit");
+                if (health > 0)
+                {
+                    health--;
+                }
+                hit = true;
+                transform.position += (transform.position - col.gameObject.transform.position).normalized * maxForce * 6f;
+            }
+        }else if (col.name.Contains("trap"))
+        {
+            if (!hit)
+            {
+                if (health > 0)
+                {
+                    health--;
+                }
+                hit = true;
+                transform.position += (transform.position - col.gameObject.transform.position).normalized * maxForce * 6f;
+            }
+        }
+        else if(col.name.Contains("exit")){
 			if (col.GetComponent<exitScript>().IsOpen){
 				Debug.Log ("exit!");
 				CanControl = false;

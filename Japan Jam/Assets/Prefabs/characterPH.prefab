@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 212986281068128866}
+  tree: 0
 --- !u!114 &114451517141369318
 MonoBehaviour:
   m_ObjectHideFlags: 1
