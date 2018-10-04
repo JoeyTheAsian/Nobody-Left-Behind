@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 50934657962436812}
   - component: {fileID: 114253728052303928}
   - component: {fileID: 114867970356130988}
+  - component: {fileID: 95760530166278408}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -320,6 +321,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95760530166278408
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1417179953364310}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b05a85c4b7275d445a1c4da8553db580, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!108 &108761710496136926
 Light:
   m_ObjectHideFlags: 1
@@ -389,15 +408,29 @@ MonoBehaviour:
   footstep: {fileID: 82993985262129442}
   followers: []
   prevPos: []
-  up: {fileID: 0}
-  down: {fileID: 0}
-  right: {fileID: 0}
-  left: {fileID: 0}
+  up: {fileID: 21300000, guid: fd299bd65a88b7b4ca12da21e753249d, type: 3}
+  down: {fileID: 21300000, guid: 15ef4a93495a07943a0489f36c86057e, type: 3}
+  right: {fileID: 21300000, guid: 600600d4d499c7c499845840a256b669, type: 3}
+  left: {fileID: 21300000, guid: b095a070dfcc95a429e77851a3a6ab98, type: 3}
   credits: {fileID: 0}
+  spriteRenderer: {fileID: 212642012823027016}
   frameCount: 7
   frameIndex: 0
   IsMoving: 1
   CanControl: 1
+  healthImage: {fileID: 0}
+  health: 3
+  manager: {fileID: 0}
+  flashLight: {fileID: 0}
+  flashlightCooldownBar: {fileID: 0}
+  flashlightCooldownTime: 5
+  flashlightCooldownTimer: 0
+  flashlightActiveTime: 1
+  flashlightActive: 0
+  flashlightCooldown: 0
+  levelLoadTime: 4
+  levelLoadTimer: 0
+  fadePanel: {fileID: 0}
 --- !u!114 &114867970356130988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -410,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 212642012823027016}
+  tree: 0
 --- !u!124 &124820452549637346
 Behaviour:
   m_ObjectHideFlags: 1

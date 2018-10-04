@@ -7,25 +7,30 @@ public class LightScript : MonoBehaviour {
 	public float intensity;
 	public float range;
 
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+    float flicker;
+    // Use this for initialization
+    void Start () {
+        flicker = Random.Range(-.5f, .5f);
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		ManageLight ();
+		ManageLight (Time.deltaTime);
 	}
 
-	void ManageLight(){
-		int followCount = gameObject.GetComponent<playerControl> ().followers.Count;
+    void ManageLight(float deltaTime) {
+        int followCount = gameObject.GetComponent<playerControl>().followers.Count;
 
-		intensity = 1f + followCount;
-		range = 17f + 3f * followCount;
+        intensity = 1f + followCount;
+        range = 17f + 3f * followCount;
 
-		gameObject.GetComponentInChildren<Light> ().intensity = intensity;
-		gameObject.GetComponentInChildren<Light> ().range = range;
+        if (Mathf.Abs(gameObject.GetComponentInChildren<Light>().intensity - (intensity + flicker)) < .05f)
+        {
+            flicker = Random.Range(-.5f, .5f);
+        }
+        
+		gameObject.GetComponentInChildren<Light> ().intensity = Mathf.Lerp(gameObject.GetComponentInChildren<Light>().intensity, intensity + flicker, 3 * Time.deltaTime);
+		gameObject.GetComponentInChildren<Light> ().range = Mathf.Lerp(gameObject.GetComponentInChildren<Light>().range, range + flicker, 3* Time.deltaTime);
 
-	}
+    }
 }

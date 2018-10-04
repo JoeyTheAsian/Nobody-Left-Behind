@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
 public class playerControl : MonoBehaviour {
 
 	public Vector2 speedForce;
@@ -206,19 +205,31 @@ public class playerControl : MonoBehaviour {
     {
         if (dir == "Right")
         {
-            GetComponent<SpriteRenderer>().sprite = right;
+            GetComponent<Animator>().speed = 1;
+            GetComponent<Animator>().Play("D");
+            //GetComponent<SpriteRenderer>().sprite = right;
         }
         else if (dir == "Left")
         {
-            GetComponent<SpriteRenderer>().sprite = left;
+            GetComponent<Animator>().speed = 1;
+            GetComponent<Animator>().Play("A");
+            // GetComponent<SpriteRenderer>().sprite = left;
         }
         else if (dir == "Up")
         {
-            GetComponent<SpriteRenderer>().sprite = up;
+            GetComponent<Animator>().speed = 1;
+            GetComponent<Animator>().Play("W");
+            // GetComponent<SpriteRenderer>().sprite = up;
         }
         else if (dir == "Down")
         {
-            GetComponent<SpriteRenderer>().sprite = down;
+            GetComponent<Animator>().speed = 1;
+            GetComponent<Animator>().Play("S");
+            // GetComponent<SpriteRenderer>().sprite = down;
+        }
+        else if(dir == "Stop")
+        {
+            GetComponent<Animator>().speed = 0;
         }
     }
 	void Movement(){
@@ -245,8 +256,6 @@ public class playerControl : MonoBehaviour {
             SetFlashlight("Up");
             //position.y += speed;
             ApplyForce(speedForceVert);
-
-
 		}
 		if (Input.GetKey(KeyCode.S)){
             SetSprite("Down");
@@ -255,6 +264,10 @@ public class playerControl : MonoBehaviour {
             ApplyForce(-speedForceVert);
 
 		}
+        if(!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            SetSprite("Stop");
+        }
 		velocity += acceleration;
 		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
 		acceleration = Vector2.zero;

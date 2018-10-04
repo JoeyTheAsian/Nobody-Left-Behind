@@ -1112,11 +1112,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc2e43550232c414192ec48c27492b18, type: 2}
   m_IsPrefabParent: 0
---- !u!212 &1629038157 stripped
-SpriteRenderer:
-  m_PrefabParentObject: {fileID: 212642012823027016, guid: 81860263e33be4d48b4212ea92353f4d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1734242920}
 --- !u!1 &1631622227
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,48 +1379,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
         type: 2}
-      propertyPath: up
-      value: 
-      objectReference: {fileID: 21300000, guid: fd299bd65a88b7b4ca12da21e753249d,
-        type: 3}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: down
-      value: 
-      objectReference: {fileID: 21300000, guid: 15ef4a93495a07943a0489f36c86057e,
-        type: 3}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: right
-      value: 
-      objectReference: {fileID: 21300000, guid: 600600d4d499c7c499845840a256b669,
-        type: 3}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: left
-      value: 
-      objectReference: {fileID: 21300000, guid: b095a070dfcc95a429e77851a3a6ab98,
-        type: 3}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
       propertyPath: credits
       value: 
       objectReference: {fileID: 1668704057}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: spriteRenderer
-      value: 
-      objectReference: {fileID: 1629038157}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: manager
-      value: 
-      objectReference: {fileID: 23211285}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: health
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
         type: 2}
       propertyPath: healthImage
@@ -1433,28 +1389,14 @@ Prefab:
       objectReference: {fileID: 1916537889}
     - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
         type: 2}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 23211285}
+    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
+        type: 2}
       propertyPath: flashLight
       value: 
       objectReference: {fileID: 17902033}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: flashlightTime
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: flashlightActiveTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: flashlightCooldownTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972778823608332, guid: 81860263e33be4d48b4212ea92353f4d, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
         type: 2}
       propertyPath: flashlightCooldownBar
@@ -1465,11 +1407,6 @@ Prefab:
       propertyPath: fadePanel
       value: 
       objectReference: {fileID: 309523095}
-    - target: {fileID: 114635637027281762, guid: 81860263e33be4d48b4212ea92353f4d,
-        type: 2}
-      propertyPath: levelLoadTime
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81860263e33be4d48b4212ea92353f4d, type: 2}
   m_IsPrefabParent: 0
