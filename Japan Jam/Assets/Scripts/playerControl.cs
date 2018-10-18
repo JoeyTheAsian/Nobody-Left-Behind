@@ -25,6 +25,8 @@ public class playerControl : MonoBehaviour {
     public Sprite left;
     public RectTransform credits;
 
+    public GameObject bloodParticles;
+
     public SpriteRenderer spriteRenderer;
 
     public int frameCount;
@@ -42,6 +44,9 @@ public class playerControl : MonoBehaviour {
     public Image healthImage;
     public int health;
     public Manager manager;
+
+    public AudioSource gruntSource;
+    public AudioSource flashlightSource;
 
     public GameObject flashLight;
     public Image flashlightCooldownBar;
@@ -70,17 +75,22 @@ public class playerControl : MonoBehaviour {
 	void Update () {
         healthImage.transform.localScale = new Vector2(health / 3f, healthImage.transform.localScale.y);
         if (health <= 0) {
-            //CanControl = false;
-           // manager.GameOver();
+            CanControl = false;
         }
         if (flashlightActive) {
             flashlightActiveTimer -= Time.deltaTime;
-            flashLight.SetActive(true);
+            
             if(flashlightActiveTimer <= 0f)
             {
                 flashlightActive = false;
                 flashLight.SetActive(false);
+                flashlightSource.Play();
                 flashlightActiveTimer = flashlightActiveTime;
+            }
+            else
+            {
+                flashLight.SetActive(true);
+                flashlightSource.Play();
             }
         }
         if (flashlightCooldownTimer <= 0)
@@ -111,8 +121,8 @@ public class playerControl : MonoBehaviour {
 		if(CanControl){
 			Movement ();
 		}
-		else{
-			AutoMove ();
+		else if (health > 0){
+            AutoMove();
             if(levelLoadTimer > 0f)
             {
                 levelLoadTimer -= Time.deltaTime;
@@ -129,7 +139,12 @@ public class playerControl : MonoBehaviour {
                 CanControl = true;
                 levelLoadTimer = levelLoadTime;
             }
-		}
+        }
+        //game over
+        else
+        {
+            manager.GameOver();
+        }
 
 		FollowerMovement ();
 
@@ -239,13 +254,19 @@ public class playerControl : MonoBehaviour {
         }
 		//Vector2 tempPos = transform.position;
 		if (Input.GetKey(KeyCode.A)){
-            SetSprite("Left");
+            if(!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+            {
+                SetSprite("Left");
+            }
             SetFlashlight("Left");
 			//position.x -= speed;
 			ApplyForce(-speedForce);
 		}
 		if (Input.GetKey(KeyCode.D)){
-            SetSprite("Right");
+            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+            {
+                SetSprite("Right");
+            }
             SetFlashlight("Right");
             //position.x += speed;
             ApplyForce(speedForce);
@@ -329,6 +350,8 @@ public class playerControl : MonoBehaviour {
                 if (health > 0)
                 {
                     health--;
+                    bloodParticles.SetActive(true);
+                    gruntSource.Play();
                 }
                 hit = true;
                 transform.position += (transform.position - col.gameObject.transform.position).normalized * maxForce * 6f;
@@ -340,6 +363,8 @@ public class playerControl : MonoBehaviour {
                 if (health > 0)
                 {
                     health--;
+                    bloodParticles.SetActive(true);
+                    gruntSource.Play();
                 }
                 hit = true;
                 transform.position += (transform.position - col.gameObject.transform.position).normalized * maxForce * 6f;

@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour {
-    public Canvas gameOver;
 
 	public float boundsHeight;
 	public float boundWidth;
@@ -22,6 +23,9 @@ public class Manager : MonoBehaviour {
 	public Vector2 topLeft;
 	private float spawnDistance;
     public Transform maptransform;
+    public GameObject gameOver;
+
+    GameObject exitObj; 
 	// Use this for initialization
 	void Start () {
 		topLeft = new Vector2 (-boundWidth / 2, boundsHeight / 2);
@@ -39,7 +43,15 @@ public class Manager : MonoBehaviour {
 	}
     public void GameOver()
     {
-
+        gameOver.SetActive(true);
+    }
+    public void Reset()
+    {
+        SceneManager.LoadScene("test");
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("main menu");
     }
     public void LevelUp()
     {
@@ -74,7 +86,15 @@ public class Manager : MonoBehaviour {
             float rX = Random.Range(topLeft.x, topLeft.x + boundWidth);
             float rY = Random.Range(topLeft.y, topLeft.y + boundsHeight * 2) - boundsHeight * 1.5f;
             int a = Random.Range(0, 3);
-            Instantiate(trap, new Vector2(rX, rY), Quaternion.identity).transform.SetParent(maptransform);
+            Vector2 pos = new Vector2(rX, rY);
+            if (Vector2.Distance(pos, exitObj.transform.position) > 14f)
+            {
+                Instantiate(trap, new Vector2(rX, rY), Quaternion.identity).transform.SetParent(maptransform);
+            }
+            else
+            {
+                i--;
+            }
         }
     }
 	void SpawnBounds(){
@@ -91,7 +111,7 @@ public class Manager : MonoBehaviour {
 			//Instantiate (exit, new Vector2 (boundWidth - i, -boundsHeight), Quaternion.identity);
 			Instantiate (borderTree, new Vector2 (boundWidth / 2 - i, -boundsHeight), Quaternion.identity).transform.SetParent(maptransform);
 		}
-		GameObject exitObj = Instantiate (exit, new Vector2 (0, -boundsHeight + 4f), Quaternion.identity);
+		exitObj = Instantiate (exit, new Vector2 (0, -boundsHeight + 4f), Quaternion.identity);
         //  exitObj.GetComponent<exitScript>().followCount = characterNum -1 ;
         exitObj.transform.SetParent(maptransform);
         for (int i = (int)boundWidth / 2 + (int)spawnDistance; i < boundWidth; i+=(int)spawnDistance) {
@@ -105,7 +125,15 @@ public class Manager : MonoBehaviour {
 			float rX = Random.Range (topLeft.x, topLeft.x + boundWidth);
 			float rY = Random.Range (topLeft.y, topLeft.y + boundsHeight * 2) - boundsHeight * 1.5f;
             int a = Random.Range(0, 3);
-            Instantiate(obstacles[a], new Vector2(rX, rY), Quaternion.identity).transform.SetParent(maptransform);
+            Vector2 pos = new Vector2(rX, rY);
+            if(Vector2.Distance(pos, exitObj.transform.position) > 14f){
+                Instantiate(obstacles[a], pos , Quaternion.identity).transform.SetParent(maptransform);
+            }
+            else
+            {
+                i--;
+            }
+           
 		}
 	}
 
@@ -113,7 +141,15 @@ public class Manager : MonoBehaviour {
 		for (int i = 0; i < characterNum; i++) {
 			float rX = Random.Range (topLeft.x + boundWidth * .1f, topLeft.x + boundWidth * 0.9f);
 			float rY = Random.Range (topLeft.y + boundsHeight * .1f , topLeft.y + boundsHeight * 2 * 0.9f) - boundsHeight * 1.35f;
-			Instantiate (character, new Vector2 (rX, rY), Quaternion.identity).transform.SetParent(maptransform);
+            Vector2 pos = new Vector2(rX, rY);
+            if (Vector2.Distance(pos, new Vector2(0f, 0f)) > 5f)
+            {
+                Instantiate(character, pos, Quaternion.identity).transform.SetParent(maptransform);
+            }
+            else
+            {
+                i--;
+            }
         }
 	}
 
@@ -123,7 +159,16 @@ public class Manager : MonoBehaviour {
         {
             float rX = Random.Range(topLeft.x, topLeft.x + boundWidth);
             float rY = Random.Range(topLeft.y, topLeft.y + boundsHeight * 2) - boundsHeight * 1.5f;
-            Instantiate(enemy, new Vector2(rX, rY), Quaternion.identity).transform.SetParent(maptransform);
+
+            Vector2 pos = new Vector2(rX, rY);
+            if (Vector2.Distance(pos, new Vector2(0f, 0f)) > 14f)
+            {
+                Instantiate(enemy, pos, Quaternion.identity).transform.SetParent(maptransform);
+            }
+            else
+            {
+                i--;
+            }
         }
     }
 }
