@@ -57,6 +57,9 @@ public class playerControl : MonoBehaviour {
     public bool flashlightActive = false;
     public bool flashlightCooldown = false;
 
+    public float speedBoostActiveTime;
+    float speedBoostTimer;
+
     public float levelLoadTime;
     public float levelLoadTimer;
     public Image fadePanel;
@@ -334,13 +337,13 @@ public class playerControl : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		if (col.name.Contains("character")){
-			if (!col.GetComponent<characterScript>().collected){
-				col.GetComponent<characterScript> ().collected = true;
-				AddFollower (col.gameObject);
-				Debug.Log ("collected");
-			}
-		}
+        if (col.name.Contains("character")) {
+            if (!col.GetComponent<characterScript>().collected) {
+                col.GetComponent<characterScript>().collected = true;
+                AddFollower(col.gameObject);
+                Debug.Log("collected");
+            }
+        }
         else if (col.name.Contains("enemy"))
         {
             if (!hit)
@@ -356,7 +359,7 @@ public class playerControl : MonoBehaviour {
                 hit = true;
                 transform.position += (transform.position - col.gameObject.transform.position).normalized * maxForce * 6f;
             }
-        }else if (col.name.Contains("trap"))
+        } else if (col.name.Contains("trap"))
         {
             if (!hit)
             {
@@ -370,13 +373,21 @@ public class playerControl : MonoBehaviour {
                 transform.position += (transform.position - col.gameObject.transform.position).normalized * maxForce * 6f;
             }
         }
-        else if(col.name.Contains("exit")){
-			if (col.GetComponent<exitScript>().IsOpen){
-				Debug.Log ("exit!");
-				CanControl = false;
+        else if (col.name.Contains("exit")) {
+            if (col.GetComponent<exitScript>().IsOpen) {
+                Debug.Log("exit!");
+                CanControl = false;
 
-			}
-		}
+            }
+        }
+        else if (col.name.Contains("SpeedBoost"))
+        {
+
+            Object.Destroy(col.gameObject);
+        } else if (col.name.Contains("Health"))
+        {
+
+        }
 	}
 
 }
