@@ -5,7 +5,7 @@ using UnityEngine;
 public class exitScript : MonoBehaviour {
 
 	public bool IsOpen = false;
-	public int followCount = 5;
+	public int followCount;
 
 	public GameObject player;
 

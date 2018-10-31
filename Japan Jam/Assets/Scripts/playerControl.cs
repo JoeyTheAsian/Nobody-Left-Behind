@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class playerControl : MonoBehaviour {
+    public bool paused = false;
+    public GameObject pauseMenu;
 
 	public Vector2 speedForce;
 	private Vector2 speedForceVert;
@@ -47,6 +49,7 @@ public class playerControl : MonoBehaviour {
 
     public AudioSource gruntSource;
     public AudioSource flashlightSource;
+    public AudioSource pickupSource;
 
     public GameObject flashLight;
     public Image flashlightCooldownBar;
@@ -58,8 +61,11 @@ public class playerControl : MonoBehaviour {
     public bool flashlightCooldown = false;
 
     public float speedBoostActiveTime;
+    public float speedBoost;
     float speedBoostTimer;
+    bool speedBoostActive = false;
 
+    
     public float levelLoadTime;
     public float levelLoadTimer;
     public Image fadePanel;
@@ -76,100 +82,123 @@ public class playerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        healthImage.transform.localScale = new Vector2(health / 3f, healthImage.transform.localScale.y);
-        if (health <= 0) {
-            CanControl = false;
-        }
-        if (flashlightActive) {
-            flashlightActiveTimer -= Time.deltaTime;
-            
-            if(flashlightActiveTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            paused = !paused;
+            if (paused)
             {
-                flashlightActive = false;
-                flashLight.SetActive(false);
-                flashlightSource.Play();
-                flashlightActiveTimer = flashlightActiveTime;
+                Time.timeScale = 0f;
+                pauseMenu.SetActive(true);
             }
             else
             {
-                flashLight.SetActive(true);
-                flashlightSource.Play();
+                Time.timeScale = 1f;
+                pauseMenu.SetActive(false);
             }
         }
-        if (flashlightCooldownTimer <= 0)
+        if (!paused)
         {
-            flashlightCooldown = false;
-            flashlightCooldownTimer = flashlightCooldownTime;
-        }
-        if (flashlightCooldown) {
-            flashlightCooldownTimer -= Time.deltaTime;
-            flashlightCooldownBar.rectTransform.localScale = new Vector2(flashlightCooldownTimer/flashlightCooldownTime, flashlightCooldownBar.transform.localScale.y);
-        }
-		position = transform.position;
-		Vector2 ultimate = Vector2.zero;
-		if (frameIndex == 0){
-			UpdatePrev ();
-		}
-        if (hit)
-        {
-            spriteRenderer.color = Color.red;
-            hitFlashTimer -= Time.deltaTime;
-            if(hitFlashTimer <= 0f)
+            healthImage.transform.localScale = new Vector2(health / 3f, healthImage.transform.localScale.y);
+            if (health <= 0)
             {
-                hit = false;
-                hitFlashTimer = hitFlashTime;
-                spriteRenderer.color = Color.white;
+                CanControl = false;
             }
-        }
-		if(CanControl){
-			Movement ();
-		}
-		else if (health > 0){
-            AutoMove();
-            if(levelLoadTimer > 0f)
+            if (speedBoostActive)
             {
-                levelLoadTimer -= Time.deltaTime;
-                fadePanel.color = new Vector4(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, (1f-(levelLoadTimer/levelLoadTime)));
+                speedBoostTimer -= Time.deltaTime;
+                if (speedBoostTimer <= 0f)
+                {
+                    speedBoostActive = false;
+                    speedBoostTimer = speedBoostActiveTime;
+                    maxSpeed -= speedBoost;
+                }
             }
+            if (flashlightActive)
+            {
+                flashlightActiveTimer -= Time.deltaTime;
+
+                if (flashlightActiveTimer <= 0f)
+                {
+                    flashlightActive = false;
+                    flashLight.SetActive(false);
+                    flashlightSource.Play();
+                    flashlightActiveTimer = flashlightActiveTime;
+                }
+                else
+                {
+                    flashLight.SetActive(true);
+                    flashlightSource.Play();
+                }
+            }
+            if (flashlightCooldownTimer <= 0)
+            {
+                flashlightCooldown = false;
+                flashlightCooldownTimer = flashlightCooldownTime;
+            }
+            if (flashlightCooldown)
+            {
+                flashlightCooldownTimer -= Time.deltaTime;
+                flashlightCooldownBar.rectTransform.localScale = new Vector2(flashlightCooldownTimer / flashlightCooldownTime, flashlightCooldownBar.transform.localScale.y);
+            }
+            position = transform.position;
+            Vector2 ultimate = Vector2.zero;
+            if (frameIndex == 0)
+            {
+                UpdatePrev();
+            }
+            if (hit)
+            {
+                spriteRenderer.color = Color.red;
+                hitFlashTimer -= Time.deltaTime;
+                if (hitFlashTimer <= 0f)
+                {
+                    hit = false;
+                    hitFlashTimer = hitFlashTime;
+                    spriteRenderer.color = Color.white;
+                }
+            }
+            if (CanControl)
+            {
+                Movement();
+            }
+            else if (health > 0)
+            {
+                AutoMove();
+                if (levelLoadTimer > 0f)
+                {
+                    levelLoadTimer -= Time.deltaTime;
+                    fadePanel.color = new Vector4(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, (1f - (levelLoadTimer / levelLoadTime)));
+                }
+                else
+                {
+                    manager.LevelUp();
+                    manager.GenerateLevel();
+                    health = 3;
+                    followers.Clear();
+                    gameObject.transform.position = new Vector3(0f, 0f, 0f);
+                    fadePanel.color = new Vector4(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0f);
+                    CanControl = true;
+                    levelLoadTimer = levelLoadTime;
+                }
+            }
+            //game over
             else
             {
-                manager.LevelUp();
-                manager.GenerateLevel();
-                health = 3;
-                followers.Clear();
-                gameObject.transform.position = new Vector3(0f, 0f, 0f);
-                fadePanel.color = new Vector4(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0f);
-                CanControl = true;
-                levelLoadTimer = levelLoadTime;
+                manager.GameOver();
             }
-        }
-        //game over
-        else
-        {
-            manager.GameOver();
-        }
 
-		FollowerMovement ();
+            FollowerMovement();
 
-		IndexControl ();
+            IndexControl();
 
-		CheckMoving ();
-        if (IsMoving && !footstep.isPlaying)
-        {
-            footstep.Play();
-        }
-        if (!IsMoving)
-        {
-            footstep.Stop();
-        }
-        if (!CanControl)
-        {
-            //credits.transform.Translate(new Vector3(0f, Time.deltaTime * 10.0f, 0f));
-            exitTimer -= Time.deltaTime;
-            if(exitTimer <= 0f)
+            CheckMoving();
+            if (IsMoving && !footstep.isPlaying)
             {
-
-                //SceneManager.LoadScene("Main Menu");
+                footstep.Play();
+            }
+            if (!IsMoving)
+            {
+                footstep.Stop();
             }
         }
     }
@@ -295,7 +324,7 @@ public class playerControl : MonoBehaviour {
 		velocity += acceleration;
 		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
 		acceleration = Vector2.zero;
-		position += velocity;
+        position += velocity * 33f * Time.deltaTime;
 		transform.position = position;
 		//transform.position = tempPos;
 	}
@@ -331,7 +360,7 @@ public class playerControl : MonoBehaviour {
 		velocity = -speedForceVert * maxSpeed;
 		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
 		position = transform.position;
-		position += velocity;
+		position += velocity * 33f * Time.deltaTime;
 		transform.position = position;
 
 	}
@@ -380,13 +409,19 @@ public class playerControl : MonoBehaviour {
 
             }
         }
-        else if (col.name.Contains("SpeedBoost"))
-        {
-
+        else if (col.name.Contains("SpeedUp")) {
+            speedBoostTimer = speedBoostActiveTime;
+            speedBoostActive = true;
             Object.Destroy(col.gameObject);
-        } else if (col.name.Contains("Health"))
-        {
-
+            maxSpeed += speedBoost;
+            pickupSource.Play();
+        } else if (col.name.Contains("HealthUp")){
+            if(health < 3)
+            {
+                health++;
+                Object.Destroy(col.gameObject);
+                pickupSource.Play();
+            }
         }
 	}
 

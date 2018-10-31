@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collected: 0
   maxSpeed: 0.3
-  maxForce: 0.1
+  maxForce: 0.095
   acceleration: {x: 0, y: 0}
   velocity: {x: 0, y: 0}
   position: {x: 0, y: 0}

@@ -417,12 +417,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937be2351af917e4280947fe67bcad40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0.13
+  maxSpeed: 0.14
   maxForce: 0.1
   acceleration: {x: -0.0056005917, y: 0.09984305}
   velocity: {x: -0.007280768, y: 0.12979595}
   position: {x: -31.66, y: -0.26}
-  aggroRadius: 35
+  aggroRadius: 18
   wanderDistance: 20
   wanderPoint: {x: -29.62741, y: 35.92485}
   IsWandering: 1

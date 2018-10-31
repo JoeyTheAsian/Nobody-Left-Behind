@@ -35,8 +35,8 @@ public class characterScript : MonoBehaviour {
 			Vector2 tempPos = transform.position;
 			Seek ();
 			velocity += acceleration;
-			velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
-			tempPos += velocity;
+			velocity = Vector2.ClampMagnitude (velocity, player.GetComponent<playerControl>().maxSpeed);
+            tempPos += velocity * 33f * Time.deltaTime;
 			transform.position = tempPos;
 
             Vector3 direction = velocity.normalized;
@@ -72,8 +72,8 @@ public class characterScript : MonoBehaviour {
 			Vector2 tempPos = transform.position;
 			Seek ();
 			velocity += acceleration;
-			velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
-			tempPos += velocity;
+			velocity = Vector2.ClampMagnitude (velocity, player.GetComponent<playerControl>().maxSpeed);
+			tempPos += velocity * 33f * Time.deltaTime;
 			transform.position = tempPos;
 
             Vector3 direction = velocity.normalized;
@@ -138,7 +138,7 @@ public class characterScript : MonoBehaviour {
 		if(velocity.magnitude < 0.1f){
 			velocity = Vector2.zero;
 		}
-		tempPos += velocity;
+        tempPos += velocity * 33f * Time.deltaTime;
 		transform.position = tempPos;
 	}
 

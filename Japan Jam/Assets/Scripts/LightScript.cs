@@ -21,8 +21,8 @@ public class LightScript : MonoBehaviour {
     void ManageLight(float deltaTime) {
         int followCount = gameObject.GetComponent<playerControl>().followers.Count;
 
-        intensity = 1f + followCount;
-        range = 17f + 3f * followCount;
+        intensity = 1f + followCount/2f;
+        range = 17f + 1.5f * followCount;
 
         if (Mathf.Abs(gameObject.GetComponentInChildren<Light>().intensity - (intensity + flicker)) < .05f)
         {
