@@ -62,11 +62,18 @@ public class DialogueManager : MonoBehaviour {
         {
             HideText();
         }
-        else
+        else if(displayText.Count <= 0)
         {
             ClearText();
             ShowText(dialogue[0]);
             dialogue.Remove(dialogue[0]);
+        }
+        else
+        {
+            while(displayText.Count > 0)
+            {
+                dialogueBox.text += displayText.Dequeue();
+            }
         }
     }
     public void ClearText()
