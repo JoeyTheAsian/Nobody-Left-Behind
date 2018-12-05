@@ -14,7 +14,7 @@ public class DialogueManager : MonoBehaviour {
     bool textScrolling = false;
     // Use this for initialization
     void Start () {
-		
+        charTimer = charTime;
 	}
     public void AddDialogue(string s)
     {
@@ -50,7 +50,7 @@ public class DialogueManager : MonoBehaviour {
             {
                 for(int i = 0; i <=Mathf.Abs(charTimer/charTime); i++)
                 {
-                    dialogueBox.text += displayText.Dequeue();
+                   dialogueBox.text += displayText.Dequeue();
                 }
                 charTimer += charTime;
             }

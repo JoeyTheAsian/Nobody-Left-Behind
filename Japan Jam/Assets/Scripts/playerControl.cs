@@ -69,8 +69,11 @@ public class playerControl : MonoBehaviour {
     public float levelLoadTime;
     public float levelLoadTimer;
     public Image fadePanel;
-	// Use this for initialization
-	void Start () {
+
+    public float deltaMovement;
+    Vector2 oldPos;
+    // Use this for initialization
+    void Start () {
 		followers = new List<GameObject> ();
 		prevPos = new Vector2[10];
 		speedForceVert = Vector2.up * speedForce.magnitude;
@@ -280,6 +283,8 @@ public class playerControl : MonoBehaviour {
         }
     }
 	void Movement(){
+        deltaMovement = Vector3.Magnitude((Vector2)transform.position - oldPos);
+        //Debug.Log(deltaMovement);
         if (Input.GetKey(KeyCode.Space) && !flashlightCooldown) {
             flashlightActive = true;
             flashlightCooldown = true;
@@ -294,7 +299,7 @@ public class playerControl : MonoBehaviour {
 			//position.x -= speed;
 			ApplyForce(-speedForce);
 		}
-		if (Input.GetKey(KeyCode.D)){
+		else if (Input.GetKey(KeyCode.D)){
             if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
             {
                 SetSprite("Right");
@@ -310,7 +315,7 @@ public class playerControl : MonoBehaviour {
             //position.y += speed;
             ApplyForce(speedForceVert);
 		}
-		if (Input.GetKey(KeyCode.S)){
+		else if (Input.GetKey(KeyCode.S)){
             SetSprite("Down");
             SetFlashlight("Down");
             //position.y -= speed;
@@ -325,7 +330,9 @@ public class playerControl : MonoBehaviour {
 		velocity = Vector2.ClampMagnitude (velocity, maxSpeed);
 		acceleration = Vector2.zero;
         position += velocity * 33f * Time.deltaTime;
-		transform.position = position;
+        
+        oldPos = (Vector2)transform.position;
+        transform.position = position;
 		//transform.position = tempPos;
 	}
 

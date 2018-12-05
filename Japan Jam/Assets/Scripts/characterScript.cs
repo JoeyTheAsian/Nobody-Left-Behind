@@ -17,11 +17,9 @@ public class characterScript : MonoBehaviour {
 	public Vector2 seekPos;
 
 	public bool IsStolen = false;
-    public Sprite up;
-    public Sprite down;
-    public Sprite right;
-    public Sprite left;
 
+    float deltaMovement;
+    Vector3 oldPos;
     // Use this for initialization
     void Start () {
 		player = GameObject.Find ("player");
@@ -29,14 +27,24 @@ public class characterScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(player.GetComponent<playerControl>().IsMoving && collected){
+        Debug.Log(deltaMovement);
+        deltaMovement = (transform.position - oldPos).magnitude;
+        if (deltaMovement <= .05f)
+        {
+            SetSprite("Stop");
+        }
+        oldPos = transform.position;
+        if (player.GetComponent<playerControl>().IsMoving && collected && !IsStolen){
 			acceleration = Vector2.zero;
 			Vector2 ultimate = Vector2.zero;
 			Vector2 tempPos = transform.position;
 			Seek ();
 			velocity += acceleration;
 			velocity = Vector2.ClampMagnitude (velocity, player.GetComponent<playerControl>().maxSpeed);
-            tempPos += velocity * 33f * Time.deltaTime;
+            if((player.GetComponent<playerControl>().deltaMovement > .11f))
+                tempPos += (velocity * 33f * Time.deltaTime);
+            
+            
 			transform.position = tempPos;
 
             Vector3 direction = velocity.normalized;
@@ -73,7 +81,7 @@ public class characterScript : MonoBehaviour {
 			Seek ();
 			velocity += acceleration;
 			velocity = Vector2.ClampMagnitude (velocity, player.GetComponent<playerControl>().maxSpeed);
-			tempPos += velocity * 33f * Time.deltaTime;
+			tempPos += velocity * 23f * Time.deltaTime;
 			transform.position = tempPos;
 
             Vector3 direction = velocity.normalized;
@@ -105,19 +113,31 @@ public class characterScript : MonoBehaviour {
     {
         if (dir == "Right")
         {
-            GetComponent<SpriteRenderer>().sprite = right;
+            GetComponent<Animator>().speed = 1;
+            GetComponent<Animator>().Play("NPC_D");
+            //GetComponent<SpriteRenderer>().sprite = right;
         }
         else if (dir == "Left")
         {
-            GetComponent<SpriteRenderer>().sprite = left;
+            GetComponent<Animator>().speed = 1;
+            GetComponent<Animator>().Play("NPC_A");
+            //GetComponent<SpriteRenderer>().sprite = left;
         }
         else if (dir == "Up")
         {
-            GetComponent<SpriteRenderer>().sprite = up;
+            GetComponent<Animator>().speed = 1;
+            GetComponent<Animator>().Play("NPC_W");
+            //GetComponent<SpriteRenderer>().sprite = up;
         }
         else if (dir == "Down")
         {
-            GetComponent<SpriteRenderer>().sprite = down;
+            GetComponent<Animator>().speed = 1;
+            GetComponent<Animator>().Play("NPC_S");
+            //GetComponent<SpriteRenderer>().sprite = down;
+        }
+        else
+        {
+            GetComponent<Animator>().speed = 0;
         }
     }
     void Seek(){
